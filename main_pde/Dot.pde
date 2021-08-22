@@ -5,6 +5,7 @@ class Dot {
   Brain brain;
 
   boolean dead = false;
+  boolean diedToWall = false;
   boolean reachedGoal = false;
   boolean isBest = false;//true if this dot is the best dot from the previous generation
 
@@ -63,6 +64,7 @@ class Dot {
       } else {//if hit obstacle
         for(int i = 0; i < obs.size(); i++) {
           if (obs.get(i).inBounds(pos)) {
+             diedToWall = true;
              dead = true;
           }
         }
@@ -81,8 +83,11 @@ class Dot {
       if (!dead) {
         //if the dot didn't reach the goal, and is not dead, then the fitness is based on how close it is to the goal
         fitness = 1.0/(distanceToGoal * distanceToGoal);
+      } else if (diedToWall) {
+        //it died to the wall
+        fitness = 1.0/(0.7 * (distanceToGoal * distanceToGoal * distanceToGoal));
       } else {
-        //it died
+        //just a regular death
         fitness = 1.0/(0.5 * (distanceToGoal * distanceToGoal * distanceToGoal));
       }
       

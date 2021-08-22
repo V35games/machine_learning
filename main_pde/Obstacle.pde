@@ -1,10 +1,10 @@
 class Obstacle {
   PVector pos;
-  int height;
-  int width;
+  float height;
+  float width;
   Triplet colour;
   
-  Obstacle(Tuple t, int h, int w, Triplet col) {
+  Obstacle(Tuple t, float h, float w, Triplet col) {
     pos = new PVector(t.getValue0(), t.getValue1());
     height = h;
     width = w;
